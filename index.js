@@ -11,7 +11,9 @@ const io = new Server(server);
 // Handle socket connections
 
 io.on('connection', (socket) => {
-  console.log('A user connected', socket.id);
+  socket.on('chat message', (message) => {
+    io.emit('chat message', message);
+  });
 });
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
